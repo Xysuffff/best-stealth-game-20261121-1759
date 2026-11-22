@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Midnight Heist</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0a0a0f; }
+  #game { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+  #status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  #ui { position: fixed; top: 12px; left: 12px; right: 12px; pointer-events: none; z-index: 10; }
+  #ui > * { pointer-events: auto; }
+  .hud { background: rgba(10,10,15,0.85); border: 1px solid #2a2a3a; border-radius: 8px; padding: 8px 12px; color: #e8e8f0; font: 13px/1.4 'JetBrains Mono', monospace; backdrop-filter: blur(4px); }
+  .hud-row { display: flex; gap: 16px; align-items: center; }
+  .hud-label { color: #888aa0; }
+  .hud-value { color: #e8e8f0; font-weight: 600; }
+  .alert { background: rgba(180,40,40,0.9); border-color: #b44; color: #ffe0e0; animation: pulse 1.5s infinite; }
+  .success { background: rgba(40,180,80,0.9); border-color: #4b4; color: #e0ffe0; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
+  #message { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: rgba(10,10,15,0.95); border: 1px solid #2a2a3a; border-radius: 8px; padding: 12px 24px; color: #e8e8f0; font: 14px/1.5 'JetBrains Mono', monospace; text-align: center; max-width: 90vw; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 20; }
+  #message.show { opacity: 1; }
+  #title { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0f 70%); color: #e8e8f0; font-family: 'JetBrains Mono', monospace; z-index: 30; }
+  #title h1 { font-size: clamp(2.5rem, 8vw, 5rem); margin: 0 0 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; background: linear-gradient(135deg, #e8e8f0, #a0a0c0, #606090); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 0 60px rgba(100,100,180,0.3); }
+  #title .subtitle { font-size: clamp(1rem, 2.5vw, 1.4rem); color: #888aa0; margin-bottom: 2rem; letter-spacing: 0.05em; }
+  #title .controls { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; text-align: left; min-width: 280px; }
+  #title .control-row { display: flex; gap: 1rem; align-items: baseline; color: #b8b8d0; font-size: clamp(0.85rem, 2vw, 1rem); }
+  #title .control-key { background: rgba(255,255,255,0.1); border: 1px solid #3a3a5a; border-radius: 4px; padding: 0.2rem 0.6rem; font-family: inherit; min-width: 3.5ch; text-align: center; color: #e8e8f0; }
+  #title button { background: linear-gradient(135deg, #2a2a4a, #1a1a3a); border: 1px solid #4a4a7a; border-radius: 8px; padding: 1rem 2.5rem; color: #e8e8f0; font: inherit; font-size: clamp(1rem, 2.5vw, 1.3rem); letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+  #title button:hover { background: linear-gradient(135deg, #3a3a6a, #2a2a4a); border-color: #6a6a9a; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(80,80,140,0.3); }
+  #title button:active { transform: translateY(0); }
+  #title .credits { margin-top: 2rem; color: #555570; font-size: 0.8rem; letter-spacing: 0.05em; }
+  .hidden { display: none !important; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="game" aria-label="Midnight Heist: navigate the museum, avoid guards, steal the artifact and escape"></canvas>
+<p id="status" role="status" aria-live="polite"></p>
+<div id="ui" class="hidden">
+  <div class="hud" id="hud-top">
+    <div class="hud-row">
+      <span class="hud-label">ARTIFACT</span>
+      <span class="hud-value" id="artifact-status">SECURED</span>
+      <span class="hud-label">ALERT</span>
+      <span class="hud-value" id="alert-level">0%</span>
+      <span class="hud-label">TIME</span>
+      <span class="hud-value" id="timer">00:00</span>
+    </div>
+  </div>
+  <div class="hud" id="hud-bottom" style="position:fixed;bottom:12px;left:12px;top:auto;">
+    <div class="hud-row">
+      <span class="hud-label">ESCAPE</span>
+      <span class="hud-value" id="escape-status">LOCKED</span>
+    </div>
+  </div>
+</div>
+<div id="message"></div>
+<div id="title">
+  <h1>Midnight Heist</h1>
+  <p class="subtitle">Infiltrate. Evade. Escape.</p>
+  <div class="controls">
+    <div class="control-row"><kbd class="control-key">W</kbd><kbd class="control-key">A</kbd><kbd class="control-key">S</kbd><kbd class="control-key">D</kbd> / <kbd class="control-key">UP</kbd><kbd class="control-key">LEFT</kbd><kbd class="control-key">DOWN</kbd><kbd class="control-key">RIGHT</kbd> <span>Move</span></div>
+    <div class="control-row"><kbd class="control-key">Shift</kbd> <span>Sneak (silent, slow)</span></div>
+    <div class="control-row"><kbd class="control-key">Space</kbd> <span>Interact / Confirm</span></div>
+    <div class="control-row"><kbd class="control-key">Esc</kbd> <span>Pause</span></div>
+  </div>
+  <button id="start-btn">Begin Heist</button>
+  <p class="credits">Original game, art, sounds & code - built for make.fun</p>
+</div>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
