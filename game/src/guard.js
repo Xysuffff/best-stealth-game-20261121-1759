@@ -4,6 +4,8 @@
 import { GUARD_SPEED, GUARD_VISION_RANGE, GUARD_VISION_ANGLE, GUARD_TURN_SPEED, GUARD_RADIUS, STEP } from './config.js';
 
 export function createGuard(path, index, level) {
+  // Agent-authored: guard factory with patrol, vision, alert, and investigation states.
+
   let waypointIndex = 0;
   let forward = true;
   let angle = 0;
@@ -24,6 +26,8 @@ export function createGuard(path, index, level) {
   }
 
   function update(dt, player, guards) {
+    // Agent-authored: per-frame guard update - vision check, alert decay, patrol/investigate movement.
+
     const speed = GUARD_SPEED * (alert > 0.5 ? 1.3 : 1);
     let events = 0;
 
@@ -119,6 +123,8 @@ export function createGuard(path, index, level) {
   }
 
   function checkVision(player, level) {
+    // Agent-authored: vision cone with range, angle, LOS, cover, shadow, and sneak checks.
+
     if (player.isHidden) return false;
     const dx = player.x - lastX;
     const dy = player.y - lastY;
@@ -146,6 +152,8 @@ export function createGuard(path, index, level) {
   }
 
   function getVisionCone() {
+    // Agent-authored: returns current vision cone data for rendering.
+
     return {
       x: lastX,
       y: lastY,
@@ -157,14 +165,20 @@ export function createGuard(path, index, level) {
   }
 
   function getPosition() {
+    // Agent-authored: returns current guard position.
+
     return { x: lastX, y: lastY };
   }
 
   function getAlertLevel() {
+    // Agent-authored: returns current alert level (0-1).
+
     return alert;
   }
 
   function makeNoise(x, y, radius) {
+    // Agent-authored: noise event triggers investigation if within radius.
+
     const dx = x - lastX;
     const dy = y - lastY;
     if (dx * dx + dy * dy < radius * radius) {

@@ -1,5 +1,6 @@
 // Game world: ties together level, player, guards, artifact, exit.
 // Step advances simulation and returns event flags.
+// Agent-authored: world coordinator with alert system, win/lose conditions, and best time tracking.
 
 import { STEP, ALERT_DECAY, ALERT_SIGHT_INCREASE, ALERT_NOISE_INCREASE, ALERT_MAX, ALERT_WARN, ALERT_DANGER,
   EVENT_NONE, EVENT_SPOTTED, EVENT_GOT_ARTIFACT, EVENT_ESCAPED, EVENT_CAUGHT,

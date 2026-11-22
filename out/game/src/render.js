@@ -1,4 +1,5 @@
 // Renderer: draws the game world to canvas. Pure drawing, no game logic.
+// Agent-authored: completely rewritten for Midnight Heist stealth game.
 
 import { WORLD_W, WORLD_H, COLORS, SCREEN_TITLE, SCREEN_PLAY, SCREEN_PAUSED, SCREEN_WON, SCREEN_LOST,
   GUARD_VISION_RANGE, GUARD_VISION_ANGLE, PLAYER_RADIUS, GUARD_RADIUS, ARTIFACT_RADIUS, EXIT_RADIUS } from './config.js';

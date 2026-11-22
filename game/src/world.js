@@ -11,6 +11,8 @@ import { createPlayer } from './player.js';
 import { createAudio, startAmbient, stopAmbient } from './audio.js';
 
 export function createWorld(random) {
+  // Agent-authored: initializes level, guards, player, artifact, exit, audio.
+
   const level = createLevel(random);
   const audio = createAudio();
 
@@ -42,6 +44,8 @@ export function createWorld(random) {
   }
 
   function step(dt, input) {
+    // Agent-authored: main simulation step - updates player, guards, alert, checks win/lose.
+
     if (screen !== SCREEN_PLAY) return EVENT_NONE;
 
     let events = EVENT_NONE;
@@ -85,6 +89,8 @@ export function createWorld(random) {
   }
 
   function getState() {
+    // Agent-authored: returns full game state for renderer.
+
     return {
       player: currentPlayerState,
       guards: guards.map(g => ({
@@ -105,6 +111,8 @@ export function createWorld(random) {
   }
 
   function setScreen(newScreen) {
+    // Agent-authored: screen transitions with full game reset on restart.
+
     screen = newScreen;
     if (newScreen === SCREEN_PLAY && (gameOver || gameWon)) {
       // Restart

@@ -1,5 +1,6 @@
 // Screenshot staging: runs the game for a fixed time from a fresh state to capture
 // representative frames (title, gameplay, win). The same seed always produces the same frames.
+// Agent-authored: automated screenshot scenes with AI player for competition requirements.
 
 import { STEP, SCREEN_TITLE, SCREEN_PLAY, SCREEN_WON } from './config.js';
 import { createWorld } from './world.js';

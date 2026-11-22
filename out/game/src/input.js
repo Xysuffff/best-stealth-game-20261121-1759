@@ -1,6 +1,7 @@
 // Keyboard input. Held keys give a movement vector; one-shot presses (interact, pause)
 // are queued as bit flags and taken once by the loop, so a press between two frames
 // is never lost and never counted twice.
+// Agent-authored: input handler with WASD/arrows, sneak toggle, interact, and pause.
 
 export const ACTION_INTERACT = 1;
 export const ACTION_PAUSE = 2;

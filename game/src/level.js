@@ -11,6 +11,8 @@ export const TILE_TYPE = {
 };
 
 export function createLevel(random) {
+  // Agent-authored: creates museum layout with walls, covers, guard patrols, artifact, exit.
+
   const grid = new Array(GRID_W * GRID_H).fill(TILE_TYPE.FLOOR);
   const covers = [];
   const walls = [];
@@ -97,6 +99,8 @@ export function createLevel(random) {
   const playerStart = { x: 16 * TILE + TILE/2, y: 1 * TILE + TILE/2 };
 
   // Check line of sight between two points (grid-based)
+  // Agent-authored: Bresenham line algorithm for wall-blocking LOS checks.
+
   function hasLineOfSight(x1, y1, x2, y2) {
     const dx = Math.abs(x2 - x1);
     const dy = Math.abs(y2 - y1);
@@ -120,6 +124,8 @@ export function createLevel(random) {
   }
 
   // Check if point is in cover
+  // Agent-authored: checks if world position overlaps a cover tile.
+
   function isInCover(x, y) {
     const gx = Math.floor(x / TILE);
     const gy = Math.floor(y / TILE);
@@ -127,6 +133,8 @@ export function createLevel(random) {
   }
 
   // Check if point is in shadow (behind cover from guard's perspective)
+  // Agent-authored: geometric shadow test using cross/dot products for cover occlusion.
+
   function isInShadow(px, py, gx, gy) {
     // Check if any cover blocks line of sight
     for (const cover of covers) {
@@ -162,6 +170,8 @@ export function createLevel(random) {
 }
 
 function mergeWalls(walls) {
+  // Agent-authored: merges adjacent wall segments for efficient rendering.
+
   // Simple horizontal merging for top-down rendering
   const byRow = new Map();
   for (const w of walls) {

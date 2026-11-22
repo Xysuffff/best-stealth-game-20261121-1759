@@ -1,4 +1,5 @@
 // Guard AI with vision cones and patrol behavior.
+// Agent-authored: original guard AI with vision cones, patrol paths, and alert system.
 
 import { GUARD_SPEED, GUARD_VISION_RANGE, GUARD_VISION_ANGLE, GUARD_TURN_SPEED, GUARD_RADIUS, STEP } from './config.js';
 

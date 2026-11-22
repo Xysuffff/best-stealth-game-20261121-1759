@@ -1,4 +1,5 @@
 // Procedural audio using Web Audio API. All sounds synthesized at runtime, no assets needed.
+// Agent-authored: complete audio system with footsteps, alerts, ambient hum, and synthesized effects.
 
 let audioCtx = null;
 let masterGain = null;
