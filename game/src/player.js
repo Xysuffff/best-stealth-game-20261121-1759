@@ -1,4 +1,5 @@
 // Player character with movement, sneaking, and interaction.
+// Agent-authored: player controller with sneaking, noise generation, and cover detection.
 
 import { PLAYER_SPEED, PLAYER_SNEAK_SPEED, PLAYER_RADIUS, STEP } from './config.js';
 

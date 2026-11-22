@@ -1,5 +1,6 @@
 // Level design: walls, cover objects, guard patrol paths, artifact and exit positions.
 // All deterministic from the seed.
+// Agent-authored: original museum layout designed for this competition.
 
 import { TILE, GRID_W, GRID_H, WORLD_W, WORLD_H } from './config.js';
 

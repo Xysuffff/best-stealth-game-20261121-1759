@@ -1,4 +1,6 @@
 // Game configuration constants
+// Agent-authored: all game constants tuned for Midnight Heist stealth gameplay.
+
 export const TILE = 32;
 export const GRID_W = 32;
 export const GRID_H = 20;
