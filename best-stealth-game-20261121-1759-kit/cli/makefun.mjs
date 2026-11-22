@@ -35395,11 +35395,11 @@ var init_version = __esm({
     "use strict";
     CLI_NAME = "makefun-cli";
     CLI_VERSION = "0.1.0";
-    CLI_BUILD = "b830de2ee8a5";
+    CLI_BUILD = "79d7b7dbf92d";
     RUN_RECORD_KIT_LEVEL = 13;
     INSTRUCTIONS_KIT_LEVEL = 14;
     FULL_CONTEXT_KIT_LEVEL = 20;
-    KIT_LEVEL = 35;
+    KIT_LEVEL = 36;
     CLI_WIRE_VERSION = `${CLI_VERSION}+kit.${KIT_LEVEL}`;
     KIT_LEVEL_HEADER = "x-makefun-kit-level";
   }
@@ -36718,7 +36718,7 @@ function uploadKeysIn(raw2) {
   const harness = raw2 !== null && typeof raw2 === "object" ? raw2.harness : void 0;
   return [...keysOf(raw2).filter(isUploadKey), ...keysOf(harness).filter(isUploadKey).map((key3) => `harness.${key3}`)];
 }
-var PUMPFUN_REPLAY_ID, PUMPFUN_REPLAY_DATASET_IDS, PUMPFUN_REPLAY_METRIC_IDS, SOLANA_BARS_ID, SOLANA_BARS_DATASET_IDS, SOLANA_BARS_METRIC_IDS, SOLANA_CLMM_ID, SOLANA_CLMM_DATASET_IDS, SOLANA_CLMM_METRIC_IDS, CODE_TESTS_ID, CODE_TESTS_SCORER_SHA256, CODE_TESTS_GATE, CODE_TESTS_SCORER_WALL_BUDGET_SEC, JUDGED_ARTIFACT_ID, JUDGE_ARTIFACT_BYTES_SOURCE, JUDGED_ARTIFACT_PROMPT_FILE, JUDGED_ARTIFACT_REFERENCE_DIR, JUDGED_ARTIFACT_GATE_FILE, JUDGED_ARTIFACT_PROMPT_MAX, JUDGED_ARTIFACT_MAX_ANCHORS, JUDGED_ARTIFACT_MAX_RUNGS, column, PUMPFUN_REPLAY, SEVEN_UTC_DAYS, THREE_UTC_DAYS, SHORT_FINAL_BLOCK_HOURS, SHORT_FINAL_MIN_TRADES, SOLANA_BARS, SOLANA_CLMM, CODE_RANK_COLUMNS, CODE_RANK_WRITERS, CODE_TESTS, JUDGED_ARTIFACT, SPONSOR_TEMPLATES, SPONSOR_PICKABLE_TEMPLATE_IDS, SETUP_ONLY_TEMPLATE_IDS, SPONSOR_TEMPLATE_IDS, PRACTICE_DATASETS, SPONSOR_FINAL_SIZES, CODE_TESTS_TIMING, UPLOAD_KEY;
+var PUMPFUN_REPLAY_ID, PUMPFUN_REPLAY_DATASET_IDS, PUMPFUN_REPLAY_METRIC_IDS, SOLANA_BARS_ID, SOLANA_BARS_DATASET_IDS, SOLANA_BARS_METRIC_IDS, SOLANA_CLMM_ID, SOLANA_CLMM_DATASET_IDS, SOLANA_CLMM_METRIC_IDS, CODE_TESTS_ID, CODE_TESTS_SCORER_SHA256, CODE_TESTS_GATE, CODE_TESTS_SCORER_WALL_BUDGET_SEC, JUDGED_ARTIFACT_ID, JUDGE_ARTIFACT_BYTES_SOURCE, JUDGED_ARTIFACT_PROMPT_FILE, JUDGED_ARTIFACT_REFERENCE_DIR, JUDGED_ARTIFACT_GATE_FILE, JUDGED_ARTIFACT_PROMPT_MAX, JUDGED_ARTIFACT_MAX_ANCHORS, JUDGED_ARTIFACT_MAX_RUNGS, column, PUMPFUN_REPLAY, SEVEN_UTC_DAYS, THREE_UTC_DAYS, SHORT_FINAL_BLOCK_HOURS, SHORT_FINAL_MIN_TRADES, SOLANA_BARS, SOLANA_CLMM, CODE_RANK_COLUMNS, CODE_RANK_WRITERS, CODE_TESTS, JUDGED_ARTIFACT, JUDGED_BRIEF_CATEGORIES, SPONSOR_TEMPLATES, SPONSOR_PICKABLE_TEMPLATE_IDS, SETUP_ONLY_TEMPLATE_IDS, SPONSOR_TEMPLATE_IDS, PRACTICE_DATASETS, SPONSOR_FINAL_SIZES, CODE_TESTS_TIMING, UPLOAD_KEY;
 var init_templates = __esm({
   "server/proposals/templates.ts"() {
     "use strict";
@@ -37073,6 +37073,7 @@ var init_templates = __esm({
         max_height: { min: 16, max: 1024, default: 1024 }
       }
     });
+    JUDGED_BRIEF_CATEGORIES = JUDGED_ARTIFACT.categories;
     SPONSOR_TEMPLATES = deepFreeze2({ [PUMPFUN_REPLAY_ID]: PUMPFUN_REPLAY, [SOLANA_BARS_ID]: SOLANA_BARS, [SOLANA_CLMM_ID]: SOLANA_CLMM, [CODE_TESTS_ID]: CODE_TESTS, [JUDGED_ARTIFACT_ID]: JUDGED_ARTIFACT });
     SPONSOR_PICKABLE_TEMPLATE_IDS = [PUMPFUN_REPLAY_ID, SOLANA_BARS_ID, SOLANA_CLMM_ID];
     SETUP_ONLY_TEMPLATE_IDS = [CODE_TESTS_ID, JUDGED_ARTIFACT_ID];
@@ -61777,7 +61778,7 @@ function askWords(c2) {
     /** inSteps for a kit with no local grade (its RULES.txt's Before you submit says the server grades every entry: server/routes/competitions/kit.ts kitHasLocalGrade), which names no local grader. */
     inStepsServerGraded: "Build the entry over several steps of one session: write it, run it, then improve it. The requirements give the numbers for this.",
     /** A strict kit's recording steps (see the header): a file added or changed before record starts, the recorded agent writing no line of it, fails transcripts_witnessed; the starter goes in unchanged and every asset comes in the recorded session. */
-    beforeRecording: `A file you add or change yourself before ${c2("record")} starts, such as a starter file you edit, a font or an image you copy in, or even a ${c2(".gitignore")}, is in the repository with its final content when the recording begins, a counted file the recorded agent wrote no line of, and ${c2("transcripts_witnessed")} fails the entry for it: bring any starter in unchanged, start the recording, then have the recorded agent make the starter your own and add every asset in the session the recording watches.`,
+    beforeRecording: `A file you add or change yourself before ${c2("record")} starts, such as a starter file you edit, a font or an image you copy in, is in the repository with its final content when the recording begins, a counted file the recorded agent wrote no line of, and ${c2("transcripts_witnessed")} fails the entry for it: bring any starter in unchanged, start the recording, then have the recorded agent make the starter your own and add every asset in the session the recording watches.`,
     /** Run --dry-run early, while a missing session can still be recorded; a chat app's account export carries no usage, so it is no way out; a Muse app agent attaches its usage rows, without which its entry is rejected; an export without usage fails, and a tool that keeps no record hands its sessions over (asRecorded, said before this on every surface that prints both). */
     checkEarly: `Check early: after your first few steps, run bundle with ${c2("--dry-run")}, which lists the sessions it finds and writes nothing. If it finds none, your agent is not recording where bundle reads: before you build further, point bundle at the session file your harness writes (${c2("--session <file>")}; a Muse agent's is the app's own ${c2("~/agents/<agent>/sessions/<id>.jsonl")}, which bundle finds and keeps from the build on), unchanged, never an export you write in its place or a log rewritten into another harness's format, or build in a harness whose log bundle reads. A chat app's account export (claude.ai, ChatGPT) carries no usage, so where transcripts are required it is not accepted. If you are a Muse app agent, your session file carries no token usage, and where transcripts are required an entry of Muse app sessions without the usage rows Muse keeps in its database is rejected: attach them with ${c2("--muse-usage <file>")}, as ${c2("bundle --help")} explains step by step, with what each row holds (an entry's status gives the same steps when the rows are missing). If you export your sessions yourself and your harness never receives usage from the provider, they fail as an export of its record however often they are sent: if your tool keeps no session record you can upload, hand them over instead, as said above. A session cannot be added to an entry once it is sent, and where transcripts are required an entry with none is rejected.`,
     /** The self-export contract (transcripts/chat-log.ts): the main session's schema, the agent named in every file (a file naming no harness is rejected), usage on every assistant message as the provider returned it (a handed-over file's aside), the two fields only a subagent's file adds, and its ATIF equivalent. */
@@ -103274,8 +103275,9 @@ var init_checks4 = __esm({
       // from OWN_WORK_REQUIRED_FROM (above), a note before it. Its fix is the verdict's own_work_fix (ownWorkFix's upload
       // words; own_work_fix_strict on a strict-transcripts entry and own_work_fix_guide on a referral/v1 guide's:
       // STRICT_TRANSCRIPT_WORDS, renderTranscriptCheckFix). A note is a skip with no hold. Its one hold is a truncated trace's
-      // (./own-work.ts's A TRUNCATED TRACE: a report marked net_targets_truncated, or census_cut where the fetch census ran out
-      // of its read budget, on an entry the gate binds received from OWN_WORK_REQUIRED_FROM): a skip with hold 'review' that does not fail, which server/payouts/standings.ts heldByCheck
+      // (./own-work.ts's A TRUNCATED TRACE: a report marked net_targets_truncated, on an entry the gate binds received from
+      // OWN_WORK_REQUIRED_FROM; a census_cut, the fetch census out of its read budget, is a note alone, the verdict standing
+      // on what it read): a skip with hold 'review' that does not fail, which server/payouts/standings.ts heldByCheck
       // reads as no place and no reward until an admin clears it or disqualifies the entry
       // (server/routes/admin/own-work-hold.ts). The registry's `hold` stays null: that field is a claim hold's reason, never a
       // check's review hold. Recorded only where the caller hands the gate the provenance report, so it stays out of
@@ -118495,6 +118497,7 @@ function excludedReason(path86, version4 = AUTHORSHIP_ALGO_VERSION) {
   if (LICENSE_NAMES.has(stem3.toLowerCase())) return "license";
   const tagged2 = LICENSE_SUFFIXED.exec(stem3);
   if (tagged2 && /^[A-Z0-9][A-Z0-9.-]*$/.test(tagged2[1])) return "license";
+  if (version4 >= 13 && REPO_CONFIG_NAMES.has(base)) return "repo_config";
   if (dirs.some((d2) => VENDORED_DIRS.has(d2))) return "vendored";
   return null;
 }
@@ -121278,7 +121281,7 @@ async function readSnapshotContent(files, blobs) {
   }
   return out;
 }
-var AUTHORSHIP_ALGO_VERSION, AUTHORSHIP_ALGO_VERSIONS, AUTHORSHIP_SCHEMA, MIN_ALNUM, AuthorshipInputError, PACK_STATUSES, IMPORT_KINDS, VENDORED_DIRS, GENERATED_DIRS_V4, GENERATED_DIRS, LOCKFILES, GENERATED_FILE, DOC_EXT, LICENSE_NAMES, LICENSE_SUFFIXED, TEXT_FILE, LUAU_FILE, WS_RUN, LETTER_OR_DIGIT, UTF83, UTF8_LOSSY, withoutBom, BEGIN_PATCH, END_PATCH, AUTHORED_KEYS, CONTENT_KEYS, PATH_KEYS, HARNESS_PATH_KEYS, READ_KEYS, EDIT_PAIRS, HARNESS_EDIT_PAIRS, SHELL_KEYS, PATCH_KEYS, TASK_TOOLS, NONE2, briefOf, PROMPT_BRIEF, HARNESS_TASK_TOOLS, WIDE_TASK_TOOLS, WIDE_PATH_KEYS, WIDE_CONTENT_KEYS, WIDE_READ_KEYS, WIDE_EDIT_PAIRS, WIDE_SHELL_KEYS, WIDE_PATCH_KEYS, WIDE_PATH_KEYS_V7, WIDE_CONTENT_KEYS_V7, WIDE_EDIT_PAIRS_V7, CODE_MODE_CALL, JSON_ARG_KEYS2, GIT_DIFF, MAX_DEPTH2, STUDIO_SCRIPT_TOOLS, ROBLOX_SERVICES, LEGACY_SOURCES, REGISTRY_SOURCES, PYTHON_CODE_TOOLS, CODE_MODE_TOOL, JS_ESCAPE, JS_SINGLE_ESCAPES, HUNK_HEADER, FILE_HEADER, DIFF_META, SR_SEARCH, SR_DIVIDER2, SR_REPLACE, SR_HINT, SR_HINT_END, HEREDOC, CAT_REDIRECT, TEE_WORD, TEE_OPTION, TEE_FILE, PYTHON_VERSION, PYTHON_RUN, PY_PREFIX2, PY_TWO_CHAR_OPS, PY_ESCAPE, PY_SINGLE_ESCAPES, PS_OPEN, PS_WRITER, PS_PATH_PARAMS, PS_SWITCHES, PS_WRITE_ALL, PS_REDIRECT, PS_ESCAPES, PS_VAR, PS_WORD_END, PS_WRITERS, PS_DOTNET_WRITE, PS_PASS_THROUGH, isOp, PYTHON_WORD, FENCE_OPEN, LINE_NUMBER_PREFIX, GREP_PREFIX, COPIED_FROM_CHARS, COPIED_FROM_MAX, SOURCE_KEYS, cutSource, TEXT_PIECE_CHARS, TEXT_PIECE_OVERLAP, COPIED, KIT_RUN, ABSOLUTE_PATH, SHELL_GLOB, pathSegs, childPlace, REDIRECT, HEREDOC_OPEN, ENV_ASSIGNMENT, programName, isRemoteUrl, CLONE_VALUE_OPTS, SUBMODULE_ADD_VALUE_OPTS, PULL_VALUE_OPTS, GH_CLONE_VALUE_OPTS, CURL_SHORT_VALUE, CURL_LONG_VALUE, WGET_SHORT_VALUE, WGET_LONG_VALUE, RSYNC_VALUE_OPTS, COPY_VALUE_OPTS, CREATE_VALUE_OPTS, RUNNER_VALUE_OPTS, SHELL_PROGRAMS, TAR_SHORT_VALUE, CLASS_RANK, LINE_STEP, ITEM_STEP, TEXT_LINE_STEP, U64_MAX2;
+var AUTHORSHIP_ALGO_VERSION, AUTHORSHIP_ALGO_VERSIONS, AUTHORSHIP_SCHEMA, MIN_ALNUM, AuthorshipInputError, PACK_STATUSES, IMPORT_KINDS, VENDORED_DIRS, GENERATED_DIRS_V4, GENERATED_DIRS, LOCKFILES, GENERATED_FILE, DOC_EXT, LICENSE_NAMES, LICENSE_SUFFIXED, REPO_CONFIG_NAMES, TEXT_FILE, LUAU_FILE, WS_RUN, LETTER_OR_DIGIT, UTF83, UTF8_LOSSY, withoutBom, BEGIN_PATCH, END_PATCH, AUTHORED_KEYS, CONTENT_KEYS, PATH_KEYS, HARNESS_PATH_KEYS, READ_KEYS, EDIT_PAIRS, HARNESS_EDIT_PAIRS, SHELL_KEYS, PATCH_KEYS, TASK_TOOLS, NONE2, briefOf, PROMPT_BRIEF, HARNESS_TASK_TOOLS, WIDE_TASK_TOOLS, WIDE_PATH_KEYS, WIDE_CONTENT_KEYS, WIDE_READ_KEYS, WIDE_EDIT_PAIRS, WIDE_SHELL_KEYS, WIDE_PATCH_KEYS, WIDE_PATH_KEYS_V7, WIDE_CONTENT_KEYS_V7, WIDE_EDIT_PAIRS_V7, CODE_MODE_CALL, JSON_ARG_KEYS2, GIT_DIFF, MAX_DEPTH2, STUDIO_SCRIPT_TOOLS, ROBLOX_SERVICES, LEGACY_SOURCES, REGISTRY_SOURCES, PYTHON_CODE_TOOLS, CODE_MODE_TOOL, JS_ESCAPE, JS_SINGLE_ESCAPES, HUNK_HEADER, FILE_HEADER, DIFF_META, SR_SEARCH, SR_DIVIDER2, SR_REPLACE, SR_HINT, SR_HINT_END, HEREDOC, CAT_REDIRECT, TEE_WORD, TEE_OPTION, TEE_FILE, PYTHON_VERSION, PYTHON_RUN, PY_PREFIX2, PY_TWO_CHAR_OPS, PY_ESCAPE, PY_SINGLE_ESCAPES, PS_OPEN, PS_WRITER, PS_PATH_PARAMS, PS_SWITCHES, PS_WRITE_ALL, PS_REDIRECT, PS_ESCAPES, PS_VAR, PS_WORD_END, PS_WRITERS, PS_DOTNET_WRITE, PS_PASS_THROUGH, isOp, PYTHON_WORD, FENCE_OPEN, LINE_NUMBER_PREFIX, GREP_PREFIX, COPIED_FROM_CHARS, COPIED_FROM_MAX, SOURCE_KEYS, cutSource, TEXT_PIECE_CHARS, TEXT_PIECE_OVERLAP, COPIED, KIT_RUN, ABSOLUTE_PATH, SHELL_GLOB, pathSegs, childPlace, REDIRECT, HEREDOC_OPEN, ENV_ASSIGNMENT, programName, isRemoteUrl, CLONE_VALUE_OPTS, SUBMODULE_ADD_VALUE_OPTS, PULL_VALUE_OPTS, GH_CLONE_VALUE_OPTS, CURL_SHORT_VALUE, CURL_LONG_VALUE, WGET_SHORT_VALUE, WGET_LONG_VALUE, RSYNC_VALUE_OPTS, COPY_VALUE_OPTS, CREATE_VALUE_OPTS, RUNNER_VALUE_OPTS, SHELL_PROGRAMS, TAR_SHORT_VALUE, CLASS_RANK, LINE_STEP, ITEM_STEP, TEXT_LINE_STEP, U64_MAX2;
 var init_authorship = __esm({
   "transcripts/authorship.ts"() {
     "use strict";
@@ -121291,8 +121294,8 @@ var init_authorship = __esm({
     init_compress();
     init_known_vendor2();
     init_winnow();
-    AUTHORSHIP_ALGO_VERSION = 12;
-    AUTHORSHIP_ALGO_VERSIONS = Object.freeze([4, 5, 6, 7, 8, 9, 10, 11, 12]);
+    AUTHORSHIP_ALGO_VERSION = 13;
+    AUTHORSHIP_ALGO_VERSIONS = Object.freeze([4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
     AUTHORSHIP_SCHEMA = "agent-fun/authorship/v1";
     MIN_ALNUM = 3;
     AuthorshipInputError = class extends Error {
@@ -121365,6 +121368,7 @@ var init_authorship = __esm({
     DOC_EXT = /\.(?:md|markdown|txt|rst|adoc|org)$/i;
     LICENSE_NAMES = /* @__PURE__ */ new Set(["license", "licence", "copying", "copying.lesser", "unlicense", "notice"]);
     LICENSE_SUFFIXED = /^(?:licen[cs]e|copying)[-_.](.+)$/i;
+    REPO_CONFIG_NAMES = /* @__PURE__ */ new Set([".gitignore", ".gitattributes", ".editorconfig"]);
     TEXT_FILE = /\.(?:[cm]?[jt]sx?|py[iw]?|ipynb|rs|go|rb|java|kts?|scala|groovy|c|h|cc|cpp|cxx|hh|hpp|hxx|mm?|cs|fsx?|swift|php|pl|pm|luau?|r|jl|dart|exs?|erl|hrl|hs|mli?|clj[sc]?|edn|elm|nim|zig|sol|vy|move|cairo|sh|bash|zsh|fish|ps1|bat|cmd|sql|graphql|gql|proto|html?|css|scss|sass|less|vue|svelte|astro|json[c5l]?|ndjson|ya?ml|toml|ini|cfg|conf|properties|env|xml|svg|csv|tsv|md|markdown|mdx|txt|rst|adoc|org|tex|gradle|cmake|mk|tf|hcl|nix)$/i;
     LUAU_FILE = /\.luau$/i;
     WS_RUN = /\s+/gu;
@@ -127556,11 +127560,7 @@ function truncatedWords(t2) {
 }
 function censusCutWords(c2) {
   if (c2 === void 0) return null;
-  return `The sessions' commands hold more than this check's trace of fetches reads (${plural5(c2.limit, "character")}), so it stopped at a tool call in message ${c2.message + 1} of session ${c2.session + 1}: what the commands from there on fetched is not in it. Lines that came from those fetches can read here as the agent's own, so this check cannot clear the entry on its own.`;
-}
-function traceGapWords(report) {
-  const words2 = [truncatedWords(report.net_targets_truncated), censusCutWords(report.census_cut)].filter((w2) => w2 !== null);
-  return words2.length === 0 ? null : words2.join(" ");
+  return `The sessions' commands hold more than this check's trace of fetches reads (${plural5(c2.limit, "character")}), so it stopped at a tool call in message ${c2.message + 1} of session ${c2.session + 1}: what the commands from there on fetched is not in it. The verdict stands on the fetches it read before its budget ran out: a note, never a hold or a rejection.`;
 }
 function ownWorkFix(variant, files, sources) {
   const where2 = files.length === 0 ? "" : ` The copied lines are mostly in ${named(files)}.`;
@@ -127686,11 +127686,13 @@ function* ownWorkSteps(input2) {
     if (links.length > 0) said4.push(`A message from the person running the agent names another entry (${named(links)}).`);
     notes.push(`${said4.join(" ")} A note, never a rejection: the check judges what reached the deliverable.`);
   }
-  const truncated = traceGapWords(report);
+  const truncated = truncatedWords(report.net_targets_truncated);
   if (truncated !== null) notes.push(truncated);
   const g3 = report.generation;
   const generation = g3.chars_per_line !== null && g3.authored_lines >= th.generationNoteMinLines && parseFixed9(g3.chars_per_line) < parseFixed9(th.generationNoteChars) ? `The sessions record ${trimFixed(g3.chars_per_line)} characters of text and thinking per authored line over ${g3.authored_lines} authored lines, under ${trimFixed(th.generationNoteChars)}: little reasoning recorded for what was written. A note, never a rejection.` : null;
   const skipping = notes.length > 0;
+  const censusCut = censusCutWords(report.census_cut);
+  if (censusCut !== null) notes.push(censusCut);
   if (generation !== null) notes.push(generation);
   const would = tiersOf(t1, t2.tier);
   const wouldV1 = tiersOf(t1v, t2v.tier);
@@ -127742,7 +127744,7 @@ function* ownWorkSteps(input2) {
   if (skipping) return { status: "skip", reason: notes.join(" "), evidence };
   const counted3 = report.totals.counted;
   const passed = counted3 === 0 ? "the deliverable holds no counted line that came from elsewhere" : `${report.totals.own} of the deliverable's ${counted3} counted lines are the agent's own writing; ${t1.lines} sit in runs from another entry's files and ${t2.tier.lines} in runs from downloads, under the bar`;
-  return { status: "pass", reason: generation === null ? passed : `${passed}. ${generation}`, evidence };
+  return { status: "pass", reason: notes.length === 0 ? passed : `${passed}. ${notes.join(" ")}`, evidence };
 }
 function siteWords(s3, label, names5) {
   return s3.class === "makefun_site" ? redactLabel(s3.host, names5) : label;
@@ -129109,8 +129111,11 @@ var init_run_record2 = __esm({
 });
 
 // server/entries/policy.ts
+function authorshipEra12(version4) {
+  return (version4 ?? 11) >= 12;
+}
 function authorshipVersionFor(bundle2) {
-  return bundle2?.submission_rule.authorship === 12 ? 12 : 11;
+  return bundle2?.submission_rule.authorship === 12 ? 13 : 11;
 }
 function diffEntrypointOf(p2) {
   return p2.entrypoints.includes(PATCH_DIFF_FILE) ? PATCH_DIFF_FILE : null;
@@ -129121,7 +129126,7 @@ function policySubjectOf(slug, bundle2, harness = bundle2?.harness.kind ?? null)
   return { slug, harness, entry: entry2, authorship: authorshipVersionFor(bundle2) };
 }
 function thinkingPolicyOf(subject, overrides = SLUG_THINKING_POLICY) {
-  const v12 = subject.authorship === 12;
+  const v12 = authorshipEra12(subject.authorship);
   const byHarness = subject.harness === null ? {} : HARNESS_THINKING_POLICY[subject.harness] ?? {};
   const byEntry = subject.harness === REFERRAL_HARNESS_KIND ? REFERRAL_ENTRY_THINKING_POLICY[subject.entry ?? "ad"] : {};
   const bySlug = Object.hasOwn(overrides, subject.slug) ? overrides[subject.slug] : {};
@@ -291020,7 +291025,9 @@ async function extractKitTarball(file3, dest, opts = {}) {
   const max = opts.maxBytes ?? MAX_KIT_UNPACKED_BYTES;
   if (existsSync12(dest)) throw new KitError(`${dest} already exists`);
   await mkdir17(dest, { recursive: true });
-  const stream3 = pipeline4(createReadStream5(file3), createGunzip(), () => void 0);
+  const gunzip2 = createGunzip();
+  const stream3 = pipeline4(createReadStream5(file3), gunzip2, () => void 0);
+  gunzip2.on("error", () => void 0);
   const reader = new StreamReader(stream3);
   const seen = /* @__PURE__ */ new Set();
   let global2 = /* @__PURE__ */ new Map();
@@ -361655,10 +361662,11 @@ function formatIdeas(r2) {
   ].join("\n");
 }
 var SETUP_WORDS = Object.freeze({
-  ready: "ready: a house template scores it as written",
-  self: "self setup: a judged text, image or code bounty make.fun prepares after funding, then lists with no review",
+  ready: "house template: make.fun's template scores it as written",
+  self: "self setup: a judged text, image or code bounty make.fun prepares by itself after funding",
   team: "team setup: the make.fun team sets up how it is scored once it is funded (make.fun sets its opening then)"
 });
+var listingLine = (o4) => `listing: ${o4.listing ?? (o4.auto_list === true ? "Goes live when you fund it, with no review." : "make.fun reviews it first, and lists it once it is approved.")}`;
 var hoursCount = (hours) => {
   const n9 = Math.round(hours * 10) / 10;
   return `${n9} hour${n9 === 1 ? "" : "s"}`;
@@ -361685,7 +361693,7 @@ function formatSuggestion(v2) {
   const out = [`suggestion ${v2.id}: ${v2.options.length} option${v2.options.length === 1 ? "" : "s"} for ${JSON.stringify(v2.prompt)}`];
   if (v2.unmet !== null) out.push(`  not offered yet: ${v2.unmet}`);
   for (const x2 of v2.options) {
-    out.push("", `${x2.id}  ${x2.title}`, ...indent3([x2.summary, `${x2.category}; ${x2.scoring.label}: ${x2.scoring.how}`, SETUP_WORDS[x2.setup], `why: ${x2.why}`, headlineWords(x2.headline), ...(x2.notes ?? []).map((n9) => `changed by make.fun: ${n9}`), ...finalsWords(x2)], "   "));
+    out.push("", `${x2.id}  ${x2.title}`, ...indent3([x2.summary, `${x2.category}; ${x2.scoring.label}: ${x2.scoring.how}`, SETUP_WORDS[x2.setup], listingLine(x2), `why: ${x2.why}`, headlineWords(x2.headline), ...(x2.notes ?? []).map((n9) => `changed by make.fun: ${n9}`), ...finalsWords(x2)], "   "));
   }
   const ids = v2.options.map((x2) => x2.id).join(" | ");
   out.push(

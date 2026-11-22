@@ -124,6 +124,8 @@ export function createGuard(path, index, level) {
 
   function checkVision(player, level) {
     // Agent-authored: vision cone with range, angle, LOS, cover, shadow, and sneak checks.
+    // Returns true if player is within vision cone, has line of sight, not in cover/shadow,
+    // and not sneaking at a distance. Uses level's LOS and cover checks.
 
     if (player.isHidden) return false;
     const dx = player.x - lastX;

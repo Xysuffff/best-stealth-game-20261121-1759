@@ -45,6 +45,8 @@ export function createWorld(random) {
 
   function step(dt, input) {
     // Agent-authored: main simulation step - updates player, guards, alert, checks win/lose.
+    // Advances game time, updates artifact/exit pulses, runs player update, iterates guards,
+    // accumulates alert from sightings, decays alert over time, checks caught/escape conditions.
 
     if (screen !== SCREEN_PLAY) return EVENT_NONE;
 
@@ -57,6 +59,8 @@ export function createWorld(random) {
     const pResult = player.update(dt, input, level, guards, artifact, exit, audio);
     currentPlayerState = { x: pResult.x, y: pResult.y, sneaking: pResult.sneaking, inCover: pResult.inCover };
     events |= pResult.events;
+
+    // Agent-authored: iterate all guards, check vision, accumulate max alert, collect spotted events.
 
     let maxGuardAlert = 0;
     for (const guard of guards) {
@@ -71,6 +75,8 @@ export function createWorld(random) {
     } else {
       alertLevel = Math.max(0, alertLevel - ALERT_DECAY * dt);
     }
+    // Agent-authored: alert increases when spotted, decays over time, clamped by max guard alert.
+
     alertLevel = Math.max(alertLevel, maxGuardAlert * ALERT_MAX);
 
     if (alertLevel >= ALERT_MAX && (events & EVENT_SPOTTED)) {

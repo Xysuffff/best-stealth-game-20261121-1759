@@ -11,6 +11,8 @@ export function createPlayer(startX, startY, level) {
   let lastFootstepSound = 0;
 
   function update(dt, input, level, guards, artifact, exit, audio) {
+    // Agent-authored: per-frame player update - movement, collision, footsteps, interaction.
+
     const speed = sneaking ? PLAYER_SNEAK_SPEED : PLAYER_SPEED;
     let events = 0;
 
@@ -96,14 +98,20 @@ export function createPlayer(startX, startY, level) {
   }
 
   function getPosition() {
+    // Agent-authored: returns current player position.
+
     return { x, y };
   }
 
   function isSneaking() {
+    // Agent-authored: returns whether player is currently sneaking.
+
     return sneaking;
   }
 
   function reset(startX, startY) {
+    // Agent-authored: resets player to start position for new game.
+
     x = startX;
     y = startY;
     sneaking = false;

@@ -25,12 +25,16 @@ export function createLevel(random) {
   for (let x = 0; x < GRID_W; x++) { set(x, 0, TILE_TYPE.WALL); set(x, GRID_H - 1, TILE_TYPE.WALL); }
   for (let y = 0; y < GRID_H; y++) { set(0, y, TILE_TYPE.WALL); set(GRID_W - 1, y, TILE_TYPE.WALL); }
 
+  // Agent-authored: perimeter walls enclose the museum, creating the boundary.
+
   // Internal walls - museum layout
   // Main hall columns
   for (let y = 3; y < GRID_H - 3; y += 4) {
     set(8, y, TILE_TYPE.WALL);
     set(23, y, TILE_TYPE.WALL);
   }
+  // Agent-authored: column pairs create sightline obstacles in the main hall.
+
   // Gallery walls
   for (let x = 12; x < 20; x++) { set(x, 5, TILE_TYPE.WALL); set(x, 14, TILE_TYPE.WALL); }
   set(12, 6, TILE_TYPE.WALL); set(12, 7, TILE_TYPE.WALL); set(12, 8, TILE_TYPE.WALL);
@@ -38,11 +42,16 @@ export function createLevel(random) {
   set(12, 11, TILE_TYPE.WALL); set(12, 12, TILE_TYPE.WALL); set(12, 13, TILE_TYPE.WALL);
   set(19, 11, TILE_TYPE.WALL); set(19, 12, TILE_TYPE.WALL); set(19, 13, TILE_TYPE.WALL);
 
+  // Agent-authored: gallery enclosure creates the artifact room with limited entry points.
+
   // Side corridors
   for (let y = 2; y < 6; y++) { set(4, y, TILE_TYPE.WALL); set(27, y, TILE_TYPE.WALL); }
   for (let y = 14; y < 18; y++) { set(4, y, TILE_TYPE.WALL); set(27, y, TILE_TYPE.WALL); }
 
+  // Agent-authored: side corridors provide alternative routes with cover.
+
   // Cover objects (statues, display cases, pillars)
+  // Agent-authored: strategic cover placement enables stealth routes through the museum.
   const coverPositions = [
     // Main hall covers
     { x: 6, y: 4 }, { x: 6, y: 8 }, { x: 6, y: 12 }, { x: 6, y: 16 },
@@ -75,6 +84,7 @@ export function createLevel(random) {
   const mergedWalls = mergeWalls(walls);
 
   // Guard patrol paths (waypoints in world coordinates)
+  // Agent-authored: 5 guards with overlapping patrols cover all museum areas.
   const patrolPaths = [
     // Guard 1: Main hall left patrol
     [{ x: 5 * TILE + TILE/2, y: 3 * TILE + TILE/2 }, { x: 5 * TILE + TILE/2, y: 16 * TILE + TILE/2 }],
@@ -90,12 +100,15 @@ export function createLevel(random) {
   ];
 
   // Artifact position (center of gallery)
+  // Agent-authored: artifact placed in the gallery center, requiring careful approach.
   const artifact = { x: 16 * TILE + TILE/2, y: 10 * TILE + TILE/2 };
 
   // Exit position (bottom center - main entrance)
+  // Agent-authored: exit at the main entrance, far from artifact - forces full museum traversal.
   const exit = { x: 16 * TILE + TILE/2, y: (GRID_H - 1) * TILE + TILE/2 };
 
   // Player start position (top center - roof entrance)
+  // Agent-authored: player enters from roof, opposite the exit - maximum distance to travel.
   const playerStart = { x: 16 * TILE + TILE/2, y: 1 * TILE + TILE/2 };
 
   // Check line of sight between two points (grid-based)

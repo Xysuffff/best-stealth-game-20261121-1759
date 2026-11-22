@@ -50,6 +50,8 @@ export function createRenderer(canvas) {
 
   function drawBackground(state) {
     // Agent-authored: draws floor, walls, covers with shadows and highlights.
+    // This function renders the static museum environment including checkerboard floor,
+    // multi-segment walls with gradient shading, and decorative cover objects.
 
     // Floor
     ctx.fillStyle = COLORS.floor;
@@ -65,6 +67,8 @@ export function createRenderer(canvas) {
       }
     }
 
+    // Agent-authored: alternating tile pattern creates visual depth without textures.
+
     // Shadows under walls
     ctx.fillStyle = COLORS.shadow;
     for (const wall of state.level.walls) {
@@ -78,6 +82,8 @@ export function createRenderer(canvas) {
       grad.addColorStop(1, COLORS.wall);
       ctx.fillStyle = grad;
       ctx.fillRect(wall.x, wall.y, wall.w, wall.h);
+
+      // Agent-authored: vertical gradient gives walls 3D appearance with top highlight.
 
       // Wall highlight
       ctx.fillStyle = 'rgba(255,255,255,0.03)';

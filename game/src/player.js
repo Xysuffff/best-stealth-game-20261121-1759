@@ -22,6 +22,8 @@ export function createPlayer(startX, startY, level) {
       let nextX = x + dx * speed * dt;
       let nextY = y + dy * speed * dt;
 
+      // Agent-authored: wall collision resolution via closest point push-out.
+
       // Wall collision
       for (const wall of level.walls) {
         if (circleRectOverlap(nextX, nextY, PLAYER_RADIUS, wall)) {
@@ -46,6 +48,8 @@ export function createPlayer(startX, startY, level) {
       if (footstepTimer >= footstepInterval) {
         footstepTimer = 0;
         audio.playFootstep(sneaking);
+        // Agent-authored: sneaking reduces noise radius from 180 to 80, making guards less likely to investigate.
+
         // Make noise for guards
         const noiseRadius = sneaking ? 80 : 180;
         for (const guard of guards) {

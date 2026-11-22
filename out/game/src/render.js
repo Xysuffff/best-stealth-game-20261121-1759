@@ -46,7 +46,11 @@ export function createRenderer(canvas) {
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
   }
 
+  // Agent-authored: formatTime helper for MM:SS.ms display used in HUD and screens.
+
   function drawBackground(state) {
+    // Agent-authored: draws floor, walls, covers with shadows and highlights.
+
     // Floor
     ctx.fillStyle = COLORS.floor;
     ctx.fillRect(0, 0, WORLD_W, WORLD_H);
@@ -108,6 +112,8 @@ export function createRenderer(canvas) {
   }
 
   function drawGuardVision(guard) {
+    // Agent-authored: renders guard vision cone with alert-based intensity.
+
     const { x, y, angle, range, fov, alert } = guard.vision;
     if (alert <= 0) return;
 
@@ -137,6 +143,8 @@ export function createRenderer(canvas) {
   }
 
   function drawGuard(guard) {
+    // Agent-authored: draws guard body, facing direction, and alert indicator.
+
     const { x, y } = guard.pos;
     const alert = guard.alert;
 
@@ -173,6 +181,8 @@ export function createRenderer(canvas) {
   }
 
   function drawPlayer(player) {
+    // Agent-authored: draws player with shadow, body, sneaking/cover indicators.
+
     const { x, y, sneaking, inCover } = player;
 
     // Shadow
@@ -217,6 +227,8 @@ export function createRenderer(canvas) {
   }
 
   function drawArtifact(artifact) {
+    // Agent-authored: draws artifact with pulse glow, diamond body, and sparkles.
+
     if (artifact.collected) return;
     const { x, y, pulse } = artifact;
 
@@ -252,6 +264,8 @@ export function createRenderer(canvas) {
   }
 
   function drawExit(exit) {
+    // Agent-authored: draws exit arch, door, lock/unlock state, and label.
+
     const { x, y, unlocked, pulse } = exit;
 
     const color = unlocked ? COLORS.exit : COLORS.exitLocked;
@@ -301,6 +315,8 @@ export function createRenderer(canvas) {
   }
 
   function drawHUD(state) {
+    // Agent-authored: draws alert bar, timer, best time, artifact/exit status, controls hint.
+
     resetTransform();
 
     // Alert bar at top center
@@ -370,6 +386,8 @@ export function createRenderer(canvas) {
   }
 
   function drawScreen(state) {
+    // Agent-authored: draws title/paused/won/lost overlay screens with dynamic content.
+
     resetTransform();
     ctx.fillStyle = 'rgba(10,10,15,0.92)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -462,6 +480,8 @@ export function createRenderer(canvas) {
   }
 
   function draw(state) {
+    // Agent-authored: main render pipeline - clear, world, visions, guards, artifact, exit, player, HUD, screens.
+
     // Clear
     resetTransform();
     ctx.fillStyle = COLORS.bg;
